@@ -28,7 +28,6 @@ for i in x_trn:
         for k in j:
             ls.append(k)
     x_train.append(ls)
-print "y"
 
 for i in x_tst:
     ls=[]
@@ -40,7 +39,6 @@ for i in x_tst:
 x_train=np.asarray(x_train)
 x_test=np.asarray(x_test)
 
-print "yo"
 net=Sequential()
 net.add(Dense(16, input_dim=784, activation='sigmoid'))
 net.add(Dense(16, activation='sigmoid'))
@@ -48,18 +46,15 @@ net.add(Dense(10, activation='sigmoid'))
 
 net.load_weights('weights.h5')
 
-sgd=optimizers.SGD(lr=0.01)
+sgd=optimizers.SGD(lr=0.05)
 net.compile(loss='mean_squared_error', optimizer=sgd, metrics=[metrics.categorical_accuracy])
-print "yoy"
-
-# x_train=x_train.reshape(x_train.shape[0], 28, 28, 1)
-# x_test=x_test.reshape(x_test.shape[0], 28, 28, 1)
 
 y_train=np_utils.to_categorical(y_train, 10)
 y_test=np_utils.to_categorical(y_test, 10)
-print "yoy"
-net.fit(x_train, y_train, epochs=3500, batch_size=200)
+
+net.fit(x_train, y_train, epochs=100, batch_size=300)
 net.save_weights('weights.h5')
-print "yoyo"
-score=net.evaluate(x_test, y_test, batch_size=50)
+
+
+score=net.evaluate(x_test, y_test, batch_size=300)
 print score
