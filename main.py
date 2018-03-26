@@ -43,7 +43,11 @@ def baseNet():
     return model
 
 net=baseNet()
-net.fit(x_trn,y_trn,validation_data=(x_tst,y_tst),epochs=3,batch_size=200,verbose=1)
+
+score=net.evaluate(x_tst,y_tst,verbose=1)
+print score
+
+net.fit(x_trn,y_trn,validation_data=(x_tst,y_tst),epochs=1,batch_size=200,verbose=1)
 
 net.save_weights('weights.h5')
 
